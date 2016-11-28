@@ -1,0 +1,26 @@
+group 'com.brashmonkey.spriter'
+version '1'
+
+apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    jcenter()
+}
+
+def gdxVersion = '1.9.4'
+def spriterVersion = '1.0'
+
+
+dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.brashmonkey.spriter:spriter:$spriterVersion"
+}
+
+task gdxSpriter(type: Jar)
+
+artifacts {
+    archives gdxSpriter
+}
