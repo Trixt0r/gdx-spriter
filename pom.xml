@@ -19,7 +19,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.brashmonkey.spriter</groupId>
+            <groupId>com.github.Trixt0r</groupId>
             <artifactId>spriter</artifactId>
             <version>1.0</version>
         </dependency>
@@ -29,6 +29,13 @@
             <version>1.9.4</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+	</repositories>
 
     <!--
     NOT ALLOWED: (see FAQ)
