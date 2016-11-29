@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     jcenter()
-    maven { url 'https://jitpack.io' }
+    maven {  url 'https://raw.github.com/Trixt0r/spriter/mvn/' }
 }
 
 def gdxVersion = '1.9.4'
@@ -16,7 +16,7 @@ def gdxVersion = '1.9.4'
 
 dependencies {
     compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    compile 'com.github.Trixt0r:spriter:1.0'
+    compile 'com.brashmonkey.spriter:spriter:1.0'
 }
 
 task gdxSpriter(type: Jar)

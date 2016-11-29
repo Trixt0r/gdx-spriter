@@ -17,9 +17,20 @@
         </license>
     </licenses>
 
+    <repositories>
+        <repository>
+            <id>spriter-mvn</id>
+            <url>https://raw.github.com/Trixt0r/spriter/mvn/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
-            <groupId>com.github.Trixt0r</groupId>
+            <groupId>com.brashmonkey.spriter</groupId>
             <artifactId>spriter</artifactId>
             <version>1.0</version>
         </dependency>
@@ -30,16 +41,51 @@
         </dependency>
     </dependencies>
 
-    <repositories>
+    <distributionManagement>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
-	</repositories>
+    </distributionManagement>
 
-    <!--
-    NOT ALLOWED: (see FAQ)
-    <repositories></repositories>
-    <pluginRepositories></pluginRepositories>
-    -->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn</branch>                       <!-- remote branch name -->
+                    <includes><include>**/*</include></includes>
+                    <repositoryName>gdx-spriter</repositoryName>      <!-- github repo name -->
+                    <repositoryOwner>Trixt0r</repositoryOwner>    <!-- github username  -->
+                </configuration>
+                <executions>
+                <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                <execution>
+                    <goals>
+                    <goal>site</goal>
+                    </goals>
+                    <phase>deploy</phase>
+                </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <!-- github server corresponds to entry in ~/.m2/settings.xml -->
+        <github.global.server>github</github.global.server>
+    </properties>
 </project>
