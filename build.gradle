@@ -1,5 +1,5 @@
 group 'com.brashmonkey.spriter'
-version '1'
+version '1.0.1'
 
 apply plugin: 'java'
 
@@ -16,7 +16,7 @@ def gdxVersion = '1.9.4'
 
 dependencies {
     compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    compile 'com.brashmonkey.spriter:spriter:1.0'
+    compile 'com.brashmonkey.spriter:spriter:1.0.1'
 }
 
 task gdxSpriter(type: Jar)
