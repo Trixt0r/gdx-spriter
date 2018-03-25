@@ -28,7 +28,7 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 	private HashMap<Pixmap, Boolean> pixmapsToDispose;
 	private boolean pack;
 	private int atlasWidth, atlasHeight;
-	private Texture.TextureFilter textureFilter;
+	private TextureFilter textureFilter;
 	
 	public Loader(Data data){
 		this(data, true);
