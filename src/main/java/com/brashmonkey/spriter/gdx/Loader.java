@@ -28,6 +28,7 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 	private HashMap<Pixmap, Boolean> pixmapsToDispose;
 	private boolean pack;
 	private int atlasWidth, atlasHeight;
+	private Texture.TextureFilter textureFilter;
 	
 	public Loader(Data data){
 		this(data, true);
@@ -45,6 +46,11 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 		this.atlasHeight = atlasHeight;
 		this.pixmaps = new HashMap<FileReference, Pixmap>();
 		this.pixmapsToDispose = new HashMap<Pixmap, Boolean>();
+		this.textureFilter = TextureFilter.Linear;
+	}
+
+	public void setTextureFilter(TextureFilter textureFilter) {
+		this.textureFilter = textureFilter;
 	}
 
 	@Override
@@ -75,7 +81,7 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 	 */
 	protected void generatePackedSprites(){
 		if(this.packer == null) return;
-		TextureAtlas tex = this.packer.generateTextureAtlas(TextureFilter.Linear, TextureFilter.Linear, false);
+		TextureAtlas tex = this.packer.generateTextureAtlas(textureFilter, textureFilter, false);
 		Set<FileReference> keys = this.resources.keySet();
 		this.disposeNonPackedTextures();
 		for(FileReference ref: keys){
@@ -113,7 +119,7 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 	
 	protected void createSprite(FileReference ref, Pixmap image){
 		Texture tex = new Texture(image);
-		tex.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		tex.setFilter(textureFilter, textureFilter);
 		int width = (int) data.getFile(ref.folder, ref.file).size.width;
 		int height = (int) data.getFile(ref.folder, ref.file).size.height;
 		TextureRegion texRegion = new TextureRegion(tex, width, height);
