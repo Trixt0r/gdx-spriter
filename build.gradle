@@ -1,13 +1,16 @@
-group 'com.brashmonkey.spriter'
-version '1.0.1'
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
 
-apply plugin: 'java'
+group = 'com.brashmonkey.spriter'
+version = '1.0.2'
 
 repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    jcenter()
+    gradlePluginPortal()
     maven {  url 'https://raw.github.com/Trixt0r/spriter/mvn/' }
 }
 
@@ -15,12 +18,19 @@ def gdxVersion = '1.9.4'
 
 
 dependencies {
-    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    compile 'com.brashmonkey.spriter:spriter:1.0.1'
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api 'com.brashmonkey.spriter:spriter:1.0.1'
 }
 
-task gdxSpriter(type: Jar)
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
-artifacts {
-    archives gdxSpriter
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
