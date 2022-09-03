@@ -142,5 +142,8 @@ public class Loader extends com.brashmonkey.spriter.Loader<Sprite> implements Di
 		}
 		pixmapsToDispose.clear();
 	}
-	
+
+	public void load(FileHandle file) {
+		super.load(file.parent().name());
+	}
 }
